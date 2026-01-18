@@ -92,11 +92,24 @@ function downloadCanvas(sourceCanvas, paletteStrings, filename = 'paint-by-numbe
         ctx.fillText(`#${i + 1}`, x + 50, y + 20); // offset text to right of box
     });
     
-    // 5. Trigger Download
-    const link = document.createElement('a');
-    link.download = filename;
-    link.href = finalCanvas.toDataURL();
-    link.click();
+    // 5. Trigger Download (PDF)
+    if (window.jspdf) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+            orientation: finalWidth > finalHeight ? 'landscape' : 'portrait',
+            unit: 'px',
+            format: [finalWidth, finalHeight]
+        });
+        
+        doc.addImage(finalCanvas.toDataURL('image/png'), 'PNG', 0, 0, finalWidth, finalHeight);
+        doc.save(filename.replace('.png', '.pdf'));
+    } else {
+        console.error("jsPDF library not found, falling back to PNG");
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = finalCanvas.toDataURL();
+        link.click();
+    }
 }
 
 /**
