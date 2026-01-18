@@ -1,0 +1,194 @@
+body {
+    font-family: sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    line-height: 1.6;
+    background: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+}
+
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+.controls {
+    background: #1e1e1e; /* Darker grey for controls */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+/* Drag & Drop Upload Zone Styles */
+.upload-zone {
+    border: 2px dashed #007bff;
+    border-radius: 8px;
+    padding: 30px;
+    background: #252525;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    margin-bottom: 20px;
+}
+
+.upload-zone:hover, .upload-zone.dragover {
+    background: #2c2c2c;
+    border-color: #4da3ff;
+}
+
+.upload-zone p {
+    margin: 0;
+    color: #bbb;
+    font-weight: bold;
+}
+
+/* Hide the actual file input */
+#upload {
+    display: none;
+}
+
+/* Range sliders container */
+.slider-group {
+    margin: 20px 0;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+}
+
+.slider-group label {
+    display: inline-block;
+    width: 150px;
+    color: #ccc;
+}
+
+canvas {
+    border: 1px solid #444;
+    max-width: 100%;
+    height: auto;
+    display: none; /* Hidden until first render */
+    margin: 10px auto;
+    image-rendering: pixelated;
+    background: #000;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Darker overlay */
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: #fff;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #333;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.swatch {
+    width: 70px;
+    text-align: center;
+    font-size: 12px;
+    color: #ccc;
+}
+
+.color-box {
+    width: 60px;
+    height: 35px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    margin: 0 auto 5px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    background: #444;
+    cursor: not-allowed;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .controls {
+        padding: 15px;
+    }
+
+    .slider-group {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .slider-group label {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+    
+    .slider-group input[type="range"] {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+        font-size: 16px;
+    }
+    
+    .upload-zone {
+        padding: 20px;
+    }
+}

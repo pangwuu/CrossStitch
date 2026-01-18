@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Paint by Numbers Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Paint by Numbers Generator</h1>
+    
+    <div class="controls">
+        <!-- Drag & Drop Zone -->
+        <div id="dropZone" class="upload-zone">
+            <p>Drag & Drop an image here or Click to Upload</p>
+            <input type="file" id="upload" accept="image/*">
+        </div>
+        
+        <div class="slider-group">
+            <label>Detail (Grid Size): </label>
+            <input type="range" id="gridSize" min="20" max="150" value="60">
+            <span id="gridValue">60</span>
+            <br><br>
+            
+            <label>Number of Colors: </label>
+            <input type="range" id="colorCount" min="5" max="30" value="12">
+            <span id="colorValue">12</span>
+        </div>
+        
+        <div>
+            <button id="processBtn">Generate Map</button>
+            <button id="downloadBtn" style="display:none;">Download Image</button>
+        </div>
+    </div>
+
+    <h3>1. Preview & Grid</h3>
+    <div style="position: relative; display: inline-block;">
+        <canvas id="mainCanvas"></canvas>
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Generating Map...</p>
+        </div>
+    </div>
+
+    <h3>2. Colour Legend</h3>
+    <div id="legend" class="legend"></div>
+    
+    <!-- Scripts loaded in dependency order -->
+    <script src="js/algorithms/kmeans.js"></script>
+    <script src="js/algorithms/color-utils.js"></script>
+    <script src="js/core/processor.js"></script>
+    <script src="js/ui/renderer.js"></script>
+    <script src="js/ui/dom.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
