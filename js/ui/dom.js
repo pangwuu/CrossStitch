@@ -102,7 +102,16 @@ function downloadCanvas(sourceCanvas, paletteStrings, filename = 'paint-by-numbe
         });
         
         doc.addImage(finalCanvas.toDataURL('image/png'), 'PNG', 0, 0, finalWidth, finalHeight);
-        doc.save(filename.replace('.png', '.pdf'));
+        
+        // Mobile-friendly download
+        const pdfBlob = doc.output('blob');
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(pdfBlob);
+        link.download = filename.replace('.png', '.pdf');
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     } else {
         console.error("jsPDF library not found, falling back to PNG");
         const link = document.createElement('a');
