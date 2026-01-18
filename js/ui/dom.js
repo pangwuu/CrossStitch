@@ -98,3 +98,19 @@ function downloadCanvas(sourceCanvas, paletteStrings, filename = 'paint-by-numbe
     link.href = finalCanvas.toDataURL();
     link.click();
 }
+
+/**
+ * Generates and downloads the outline version of the map
+ * @param {Object} data - Processed image data
+ */
+function downloadOutline(data) {
+    if (!data) return;
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    
+    // Draw outline grid
+    drawGrid(tempCanvas, tempCtx, data, 20, true);
+    
+    // Use existing download logic (adds legend, etc.)
+    downloadCanvas(tempCanvas, data.paletteStrings, 'paint-by-numbers-outline.png');
+}

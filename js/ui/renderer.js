@@ -7,7 +7,7 @@
  * @param {Object} data - { width, height, palette, paletteStrings, pixelMap }
  * @param {number} cellSize - Pixel size for each grid cell
  */
-function drawGrid(canvas, ctx, data, cellSize = 20) {
+function drawGrid(canvas, ctx, data, cellSize = 20, isOutline = false) {
     const { width: w, height: h, palette, paletteStrings, pixelMap } = data;
     
     canvas.width = w * cellSize;
@@ -24,15 +24,23 @@ function drawGrid(canvas, ctx, data, cellSize = 20) {
             const color = paletteStrings[label - 1];
             
             // Draw cell background
-            ctx.fillStyle = color;
+            if (isOutline) {
+                ctx.fillStyle = "#FFFFFF";
+            } else {
+                ctx.fillStyle = color;
+            }
             ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
             
             // Draw cell border (optional, good for 'grid' look)
-            ctx.strokeStyle = "rgba(0,0,0,0.1)";
+            ctx.strokeStyle = isOutline ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)";
             ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
             
             // Draw label
-            ctx.fillStyle = getContrastColor(palette[label - 1]);
+            if (isOutline) {
+                ctx.fillStyle = "black";
+            } else {
+                ctx.fillStyle = getContrastColor(palette[label - 1]);
+            }
             ctx.font = "8px Arial";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";

@@ -10,11 +10,13 @@ const colorCountInput = document.getElementById('colorCount');
 const colorValue = document.getElementById('colorValue');
 const processBtn = document.getElementById('processBtn');
 const downloadBtn = document.getElementById('downloadBtn');
+const downloadOutlineBtn = document.getElementById('downloadOutlineBtn');
 const loadingOverlay = document.getElementById('loadingOverlay');
 
 // State management
 let originalImage = null;
 let currentPalette = []; // Kept for reference if needed later
+let currentResult = null;
 
 // Event listeners
 // 1. Click upload
@@ -43,6 +45,7 @@ processBtn.addEventListener('click', render);
 gridSizeInput.addEventListener('input', updateGridValue);
 colorCountInput.addEventListener('input', updateColorValue);
 downloadBtn.addEventListener('click', () => downloadCanvas(canvas, currentPalette));
+downloadOutlineBtn.addEventListener('click', () => downloadOutline(currentResult));
 
 /**
  * Updates the displayed grid size value
@@ -103,6 +106,7 @@ function render() {
             
             // 1. Process Image (Heavy lifting: K-means, mapping)
             const result = processImage(originalImage, size, maxColors);
+            currentResult = result;
             
             // 2. Draw to Canvas
             canvas.style.display = 'block'; // Make canvas visible
@@ -112,6 +116,7 @@ function render() {
             createLegend(legendDiv, result.paletteStrings);
             currentPalette = result.paletteStrings;
             downloadBtn.style.display = 'inline-block';
+            downloadOutlineBtn.style.display = 'inline-block';
         } catch (error) {
             console.error("Rendering failed:", error);
             alert("An error occurred while generating the map.");
